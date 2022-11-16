@@ -1,7 +1,7 @@
 package pl.training.shop;
 
 import lombok.extern.java.Log;
-import org.javamoney.moneta.FastMoney;
+import org.javamoney.moneta.Money;
 import pl.training.shop.payments.*;
 import pl.training.shop.time.SystemTimeProvider;
 import pl.training.shop.time.TimeProvider;
@@ -29,7 +29,7 @@ public class Application {
     public static void main(String[] args) {
         var timeProvider = timeProvider();
         var paymentService = paymentServiceWithLogging(paymentService(timeProvider));
-        var paymentRequest = new PaymentRequest(1L, FastMoney.of(1_000, DEFAULT_CURRENCY_CODE));
+        var paymentRequest = new PaymentRequest(1L, Money.of(1_000, DEFAULT_CURRENCY_CODE));
         var payment = paymentService.process(paymentRequest);
         log.info(payment.toString());
     }
