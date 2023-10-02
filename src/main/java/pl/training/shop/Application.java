@@ -16,7 +16,10 @@ public class Application {
             var paymentService = container.getBean(PaymentService.class);
             var paymentRequest = new PaymentRequest(1L, Money.of(1_000, DEFAULT_CURRENCY_CODE));
             var payment = paymentService.process(paymentRequest);
-            log.info(payment.toString());
+            var id = payment.getId();
+            log.info(paymentService.getById(id).toString());
+            log.info(paymentService.getById(id).toString());
+            //log.info(paymentService.getById("123").toString());
         }
     }
 

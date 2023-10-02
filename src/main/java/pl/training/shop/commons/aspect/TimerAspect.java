@@ -14,7 +14,7 @@ import static pl.training.shop.commons.aspect.Timer.TimeUnit.NS;
 @Aspect
 @Component
 @Log
-public class TimeLogger implements Ordered {
+public class TimerAspect implements Ordered {
 
     @Around("@annotation(timer)")
     public Object log(ProceedingJoinPoint joinPoint, Timer timer) throws Throwable {

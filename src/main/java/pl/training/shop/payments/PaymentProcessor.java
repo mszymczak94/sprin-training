@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.javamoney.moneta.Money;
 import pl.training.shop.commons.aspect.Loggable;
+import pl.training.shop.commons.aspect.MinLength;
 import pl.training.shop.commons.aspect.Retry;
 import pl.training.shop.commons.aspect.Timer;
 import pl.training.shop.time.TimeProvider;
@@ -27,8 +28,7 @@ public class PaymentProcessor implements PaymentService {
     public Payment process(PaymentRequest paymentRequest) {
         var paymentValue = calculatePaymentValue(paymentRequest.getValue());
         var payment = createPayment(paymentValue);
-        // return paymentsRepository.save(payment);
-        throw new IllegalArgumentException();
+        return paymentsRepository.save(payment);
     }
 
     private Payment createPayment(Money paymentValue) {
@@ -43,6 +43,12 @@ public class PaymentProcessor implements PaymentService {
     private Money calculatePaymentValue(Money paymentValue) {
         var paymentFee = paymentFeeCalculator.calculateFee(paymentValue);
         return paymentValue.add(paymentFee);
+    }
+
+    @Override
+    public Payment getById(@MinLength(16) String id) {
+        return paymentsRepository.getById(id)
+                .orElseThrow(PaymentNotFoundException::new);
     }
 
     public void init() {
