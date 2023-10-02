@@ -1,10 +1,12 @@
 package pl.training.shop.time;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 
-@Component
+// @Scope("singleton") // shared instance, default
+// @Scope("prototype") // new instance per injection
+@Service("timeProvider")
 public class SystemTimeProvider implements TimeProvider {
 
     @Override
