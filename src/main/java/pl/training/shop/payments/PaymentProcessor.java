@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.javamoney.moneta.Money;
 import pl.training.shop.commons.aspect.Loggable;
+import pl.training.shop.commons.aspect.Retry;
 import pl.training.shop.commons.aspect.Timer;
 import pl.training.shop.time.TimeProvider;
 
@@ -19,13 +20,15 @@ public class PaymentProcessor implements PaymentService {
     private final PaymentRepository paymentsRepository;
     private final TimeProvider timeProvider;
 
+    @Retry(attempts = 2)
     @Timer(timeUnit = NS)
     // @Loggable
     @Override
     public Payment process(PaymentRequest paymentRequest) {
         var paymentValue = calculatePaymentValue(paymentRequest.getValue());
         var payment = createPayment(paymentValue);
-        return paymentsRepository.save(payment);
+        // return paymentsRepository.save(payment);
+        throw new IllegalArgumentException();
     }
 
     private Payment createPayment(Money paymentValue) {
