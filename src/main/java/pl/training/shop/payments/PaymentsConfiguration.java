@@ -42,12 +42,12 @@ public class PaymentsConfiguration {
         return new InMemoryPaymentRepository();
     }
 
-    @Bean
+    /*@Bean
     public Advisor cacheAdvisor(CacheAspect cacheAspect) {
         var pointcut = new AspectJExpressionPointcut();
         pointcut.setExpression("execution(pl.training.shop.payments.Payment pl.training.shop.payments.PaymentProcessor.getById(String))");
         // Alternatively instead of pointcut one can implement custom ExpressionPointcut
         return new DefaultPointcutAdvisor(pointcut, cacheAspect);
-    }
+    }*/
 
 }
