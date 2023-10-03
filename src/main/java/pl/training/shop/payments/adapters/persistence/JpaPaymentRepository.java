@@ -10,6 +10,6 @@ public interface JpaPaymentRepository extends JpaRepository<PaymentEntity, Strin
     Page<PaymentEntity> findByStatus(String status, Pageable pageable);
 
     @Query("select p from Payment p where p.status = 'COMPLETED' and p.value >= :value")
-    Page<PaymentEntity> getCompletedWithValue(/*@Param("value")*/ double value, Pageable pageable);
+    Page<PaymentEntity> findCompletedWithValue(/*@Param("value")*/ double value, Pageable pageable);
 
 }

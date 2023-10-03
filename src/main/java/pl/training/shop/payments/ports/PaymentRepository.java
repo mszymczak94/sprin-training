@@ -11,8 +11,8 @@ public interface PaymentRepository {
 
     Payment save(Payment payment);
 
-    Optional<Payment> getById(String id);
+    Optional<Payment> findById(String id);
 
-    ResultPage<Payment> getByStatus(PaymentStatus paymentStatus, Page page);
+    ResultPage<Payment> findByStatus(PaymentStatus paymentStatus, Page page);
 
 }

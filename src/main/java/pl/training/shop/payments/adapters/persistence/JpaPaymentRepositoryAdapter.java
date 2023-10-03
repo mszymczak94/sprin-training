@@ -30,13 +30,13 @@ public class JpaPaymentRepositoryAdapter implements PaymentRepository {
     }
 
     @Override
-    public Optional<Payment> getById(String id) {
+    public Optional<Payment> findById(String id) {
         return repository.findById(id)
                 .map(mapper::toDomain);
     }
 
     @Override
-    public ResultPage<Payment> getByStatus(PaymentStatus paymentStatus, Page page) {
+    public ResultPage<Payment> findByStatus(PaymentStatus paymentStatus, Page page) {
         var status = mapper.toEntity(paymentStatus);
         var result = repository.findByStatus(status, PageRequest.of(page.getNumber(), page.getSize()));
         return mapper.toDomain(result);

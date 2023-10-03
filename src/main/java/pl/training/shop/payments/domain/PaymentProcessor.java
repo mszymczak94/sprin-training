@@ -48,13 +48,13 @@ public class PaymentProcessor implements PaymentService {
 
     @Override
     public Payment getById(@MinLength(16) String id) {
-        return paymentsRepository.getById(id)
+        return paymentsRepository.findById(id)
                 .orElseThrow(PaymentNotFoundException::new);
     }
 
     @Override
     public ResultPage<Payment> getByStatus(PaymentStatus paymentStatus, Page page) {
-        return paymentsRepository.getByStatus(paymentStatus, page);
+        return paymentsRepository.findByStatus(paymentStatus, page);
     }
 
     public void init() {
