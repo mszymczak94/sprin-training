@@ -23,7 +23,7 @@ public class PaymentProcessor implements PaymentService {
 
     // @Retry(attempts = 2)
     // @Timer(timeUnit = NS)
-    // @Loggable
+    @Loggable
     @Override
     public Payment process(PaymentRequest paymentRequest) {
         var paymentValue = calculatePaymentValue(paymentRequest.getValue());
