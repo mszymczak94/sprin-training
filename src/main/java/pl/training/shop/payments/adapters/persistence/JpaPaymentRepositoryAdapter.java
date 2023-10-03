@@ -1,10 +1,14 @@
 package pl.training.shop.payments.adapters.persistence;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import pl.training.shop.commons.data.Page;
+import pl.training.shop.commons.data.ResultPage;
 import pl.training.shop.payments.domain.Payment;
+import pl.training.shop.payments.domain.PaymentStatus;
 import pl.training.shop.payments.ports.PaymentRepository;
 
 import java.util.Optional;
@@ -27,8 +31,15 @@ public class JpaPaymentRepositoryAdapter implements PaymentRepository {
 
     @Override
     public Optional<Payment> getById(String id) {
-        return repository.getById(id)
+        return repository.findById(id)
                 .map(mapper::toDomain);
+    }
+
+    @Override
+    public ResultPage<Payment> getByStatus(PaymentStatus paymentStatus, Page page) {
+        var status = mapper.toEntity(paymentStatus);
+        var result = repository.findByStatus(status, PageRequest.of(page.getNumber(), page.getSize()));
+        return mapper.toDomain(result);
     }
 
 }

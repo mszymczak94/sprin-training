@@ -9,6 +9,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Atomic {
 
-    int timeoutInMilliseconds() default 0;
+    int timeoutInMilliseconds() default -1;
 
 }

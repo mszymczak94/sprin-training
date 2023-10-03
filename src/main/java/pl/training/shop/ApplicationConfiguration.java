@@ -7,6 +7,7 @@ import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.context.annotation.*;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -20,6 +21,7 @@ import static java.lang.Integer.parseInt;
 @PropertySource("classpath:jdbc.properties")
 @EnableAspectJAutoProxy
 @EnableTransactionManagement
+@EnableJpaRepositories
 @ComponentScan
 @Configuration
 public class ApplicationConfiguration {
