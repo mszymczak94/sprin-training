@@ -11,11 +11,8 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import pl.training.shop.time.SystemTimeProvider;
-import pl.training.shop.time.TimeProvider;
 
 import javax.sql.DataSource;
-
 import java.util.Properties;
 
 import static java.lang.Integer.parseInt;
@@ -26,12 +23,6 @@ import static java.lang.Integer.parseInt;
 @ComponentScan
 @Configuration
 public class ApplicationConfiguration {
-
-    @Scope("singleton") // default
-    @Bean(name = {"timeProvider", "systemTimeProvider"})
-    public TimeProvider timeProvider() {
-        return new SystemTimeProvider();
-    }
 
     @Bean
     public DataSource dataSource(Environment environment) {

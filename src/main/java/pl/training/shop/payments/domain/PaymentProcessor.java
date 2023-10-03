@@ -1,21 +1,16 @@
-package pl.training.shop.payments;
+package pl.training.shop.payments.domain;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.javamoney.moneta.Money;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
+import pl.training.shop.commons.aspect.Atomic;
 import pl.training.shop.commons.aspect.Loggable;
 import pl.training.shop.commons.aspect.MinLength;
-import pl.training.shop.commons.aspect.Retry;
-import pl.training.shop.commons.aspect.Timer;
-import pl.training.shop.time.TimeProvider;
+import pl.training.shop.payments.ports.PaymentRepository;
+import pl.training.shop.payments.ports.PaymentService;
+import pl.training.shop.payments.ports.TimeProvider;
 
-import static org.springframework.transaction.annotation.Propagation.REQUIRES_NEW;
-import static pl.training.shop.commons.aspect.Timer.TimeUnit.MS;
-import static pl.training.shop.commons.aspect.Timer.TimeUnit.NS;
-
-@Transactional(propagation = REQUIRES_NEW)
+@Atomic
 @Log
 @RequiredArgsConstructor
 public class PaymentProcessor implements PaymentService {
