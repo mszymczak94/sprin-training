@@ -21,8 +21,8 @@ public class PaymentProcessor implements PaymentService {
     private final PaymentRepository paymentsRepository;
     private final TimeProvider timeProvider;
 
-    @Retry(attempts = 2)
-    @Timer(timeUnit = NS)
+    // @Retry(attempts = 2)
+    // @Timer(timeUnit = NS)
     // @Loggable
     @Override
     public Payment process(PaymentRequest paymentRequest) {
