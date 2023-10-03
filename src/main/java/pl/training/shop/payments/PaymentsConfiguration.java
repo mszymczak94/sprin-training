@@ -39,7 +39,7 @@ public class PaymentsConfiguration {
 
     @Bean
     public PaymentRepository paymentRepository() {
-        return new InMemoryPaymentRepository();
+        return new JpaPaymentRepository();
     }
 
     /*@Bean

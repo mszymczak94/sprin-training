@@ -3,15 +3,19 @@ package pl.training.shop.payments;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.javamoney.moneta.Money;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import pl.training.shop.commons.aspect.Loggable;
 import pl.training.shop.commons.aspect.MinLength;
 import pl.training.shop.commons.aspect.Retry;
 import pl.training.shop.commons.aspect.Timer;
 import pl.training.shop.time.TimeProvider;
 
+import static org.springframework.transaction.annotation.Propagation.REQUIRES_NEW;
 import static pl.training.shop.commons.aspect.Timer.TimeUnit.MS;
 import static pl.training.shop.commons.aspect.Timer.TimeUnit.NS;
 
+@Transactional(propagation = REQUIRES_NEW)
 @Log
 @RequiredArgsConstructor
 public class PaymentProcessor implements PaymentService {
