@@ -1,0 +1,8 @@
+Stwórz aplikację/nowy projekt umożliwiający składanie i sprawdzanie statusu zamówień na wymyślone produkty
+
+Proces składania zamówienia
+- użytkownik przekazuje listę zamawianych produktów
+- sklep tworzy na ich podstawie zamówienie i oblicza jego całkowitą wartość
+- zamówienie jest zapisywane w bazie
+
+Wykorzystaj zdobytą dotychczas wiedzę, w szczególności wstrzykiwanie zależności i aspekty
