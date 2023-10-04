@@ -1,17 +1,16 @@
 package pl.training.shop.payments.adapters.rest;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import pl.training.shop.commons.data.Page;
-import pl.training.shop.commons.web.ExceptionDto;
+import pl.training.shop.commons.data.validation.Extended;
 import pl.training.shop.commons.web.LocationUri;
 import pl.training.shop.commons.web.ResultPageDto;
-import pl.training.shop.payments.domain.PaymentNotFoundException;
 import pl.training.shop.payments.ports.PaymentService;
 
-import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static pl.training.shop.payments.domain.PaymentStatus.STARTED;
 
 // @ResponseBody
@@ -25,7 +24,7 @@ public class PaymentRestController {
     private final PaymentService paymentService;
 
     @PostMapping
-    public ResponseEntity<PaymentDto> process(@RequestBody PaymentRequestDto paymentRequestDto) {
+    public ResponseEntity<PaymentDto> process(@Validated(Extended.class) /*@Valid*/ @RequestBody PaymentRequestDto paymentRequestDto) {
         var paymentRequest = mapper.toDomain(paymentRequestDto);
         var payment = paymentService.process(paymentRequest);
         var paymentDto = mapper.toDto(payment);
@@ -50,10 +49,10 @@ public class PaymentRestController {
         return ResponseEntity.ok(resultPageDto);
     }
 
-    @ExceptionHandler(PaymentNotFoundException.class)
+    /*@ExceptionHandler(PaymentNotFoundException.class)
     public ResponseEntity<ExceptionDto> onPaymentNotFoundException(PaymentNotFoundException paymentNotFoundException) {
         return ResponseEntity.status(NOT_FOUND)
                 .body(new ExceptionDto("Payment not found"));
-    }
+    }*/
 
 }

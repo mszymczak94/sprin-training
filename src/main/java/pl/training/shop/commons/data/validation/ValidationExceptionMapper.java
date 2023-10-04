@@ -1,4 +1,4 @@
-package pl.training.shop.commons.data;
+package pl.training.shop.commons.data.validation;
 
 import org.mapstruct.Mapper;
 import org.springframework.web.bind.MethodArgumentNotValidException;

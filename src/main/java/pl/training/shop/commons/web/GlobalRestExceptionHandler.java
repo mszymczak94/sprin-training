@@ -7,7 +7,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
-import pl.training.shop.commons.data.ValidationExceptionMapper;
+import pl.training.shop.commons.data.validation.ValidationExceptionMapper;
 
 import java.util.Locale;
 
@@ -15,7 +15,7 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 @Log
-//@ControllerAdvice(annotations = RestController.class)
+@ControllerAdvice(annotations = RestController.class)
 @RequiredArgsConstructor
 public class GlobalRestExceptionHandler {
 
