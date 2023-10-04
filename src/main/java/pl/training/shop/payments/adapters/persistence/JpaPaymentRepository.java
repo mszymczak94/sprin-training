@@ -2,10 +2,7 @@ package pl.training.shop.payments.adapters.persistence;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.EntityGraph;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.*;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +12,8 @@ import java.util.stream.Stream;
 
 import static org.springframework.data.jpa.repository.EntityGraph.EntityGraphType.LOAD;
 
-public interface JpaPaymentRepository extends JpaRepository<PaymentEntity, String>, JpaPaymentRepositoryExtensions { // CrudRepository<PaymentEntity, String> {
+public interface JpaPaymentRepository extends JpaRepository<PaymentEntity, String>, JpaSpecificationExecutor<PaymentEntity>,
+        JpaPaymentRepositoryExtensions { // CrudRepository<PaymentEntity, String> {
 
     Page<PaymentEntity> findByStatus(String status, Pageable pageable);
 
