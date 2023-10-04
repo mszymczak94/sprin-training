@@ -21,7 +21,7 @@ import static java.lang.Integer.parseInt;
 @PropertySource("classpath:jdbc.properties")
 @EnableAspectJAutoProxy
 @EnableTransactionManagement
-@EnableJpaRepositories
+@EnableJpaRepositories//(repositoryImplementationPostfix = "Impl")
 @ComponentScan
 @Configuration
 public class ApplicationConfiguration {
