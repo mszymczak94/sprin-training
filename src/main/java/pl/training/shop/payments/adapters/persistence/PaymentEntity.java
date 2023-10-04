@@ -21,6 +21,7 @@ public class PaymentEntity {
 
     @Id
     private String id;
+    @Column(name = "amount")
     private double value;
     private String currencyCode;
     private Instant timestamp;

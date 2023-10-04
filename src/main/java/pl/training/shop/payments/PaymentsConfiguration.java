@@ -6,6 +6,7 @@ import pl.training.shop.payments.domain.*;
 import pl.training.shop.payments.ports.PaymentRepository;
 import pl.training.shop.payments.ports.TimeProvider;
 
+// @Profile("dev")
 @Configuration
 public class PaymentsConfiguration {
 
