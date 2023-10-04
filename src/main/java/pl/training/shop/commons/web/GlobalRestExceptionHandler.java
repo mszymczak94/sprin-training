@@ -15,7 +15,7 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 @Log
-@ControllerAdvice(annotations = RestController.class)
+//@ControllerAdvice(annotations = RestController.class)
 @RequiredArgsConstructor
 public class GlobalRestExceptionHandler {
 
