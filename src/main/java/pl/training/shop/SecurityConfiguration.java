@@ -2,12 +2,11 @@ package pl.training.shop;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer.FrameOptionsConfig;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
@@ -17,6 +16,7 @@ import javax.sql.DataSource;
 
 import static org.springframework.http.HttpMethod.POST;
 
+@EnableMethodSecurity(jsr250Enabled = true, securedEnabled = true, prePostEnabled = true)
 @Configuration
 public class SecurityConfiguration {
 
@@ -49,9 +49,10 @@ public class SecurityConfiguration {
         return httpSecurity
                 .csrf(config -> {})
                 .authorizeHttpRequests(config -> config
-                    .requestMatchers("/login.html").permitAll()
-                    .requestMatchers(POST, "/payments/process").hasAuthority("ROLE_ADMIN") //hasRole("ADMIN");
-                    .requestMatchers("/**").authenticated()
+                    .requestMatchers(new AntPathRequestMatcher("/login.html")).permitAll() // new AntPathRequestMatcher required bc of h2 conosle
+                    .requestMatchers(new AntPathRequestMatcher("/h2-console")).permitAll()
+                    .requestMatchers(new AntPathRequestMatcher("/payments/process", POST.name())).hasAuthority("ROLE_ADMIN") //hasRole("ADMIN");
+                    .requestMatchers(new AntPathRequestMatcher("/**")).authenticated()
                 )
                 // .httpBasic(config -> {})
                 .formLogin(config -> config
@@ -63,6 +64,9 @@ public class SecurityConfiguration {
                    .logoutRequestMatcher(new AntPathRequestMatcher("/logout.html"))
                    .logoutSuccessUrl("/login.html")
                    // .invalidateHttpSession(true)
+                )
+                .headers(config -> config
+                   .frameOptions(FrameOptionsConfig::disable)
                 )
                 .build();
     }

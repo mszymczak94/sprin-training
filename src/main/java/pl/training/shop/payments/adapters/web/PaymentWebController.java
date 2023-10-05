@@ -1,7 +1,11 @@
 package pl.training.shop.payments.adapters.web;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,6 +32,10 @@ public class PaymentWebController {
         return "payments/payment-form";
     }
 
+    // @Secured("ROLE_MANAGER")
+    // @RolesAllowed("ROLE_MANAGER")
+    // @PreAuthorize("#paymentRequestViewModel.value > 10")
+    // @PostAuthorize("returnObject.contains('ayment-summar')")
     @PostMapping
     public String process(@Valid @ModelAttribute("paymentRequest") PaymentRequestViewModel paymentRequestViewModel,
                           BindingResult bindingResult,
