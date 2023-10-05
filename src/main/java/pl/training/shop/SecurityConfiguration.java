@@ -36,17 +36,18 @@ public class SecurityConfiguration {
         return new InMemoryUserDetailsManager(user);
     }*/
 
-    @Bean
+    /*@Bean
     public UserDetailsManager userDetailsManager(DataSource dataSource) {
         var manager = new JdbcUserDetailsManager(dataSource);
         manager.setUsersByUsernameQuery("select username, password, enabled from app_users where username = ?");
         manager.setAuthoritiesByUsernameQuery("select username, authority from app_users_authorities where username = ?");
         return manager;
-    }
+    }*/
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
+                //.userDetailsService()
                 .csrf(config -> config
                     .ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**"))
                 )
