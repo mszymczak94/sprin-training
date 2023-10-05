@@ -1,5 +1,6 @@
 package pl.training.shop;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -10,7 +11,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import pl.training.shop.commons.security.jwt.JwtAuthenticationFilter;
+import pl.training.shop.commons.security.jwt.JwtAuthenticationToken;
 
 import javax.sql.DataSource;
 
@@ -44,17 +48,21 @@ public class SecurityConfiguration {
         return manager;
     }*/
 
+    @Autowired
+    private JwtAuthenticationFilter jwtAuthenticationFilter;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
+                .addFilterAt(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 //.userDetailsService()
                 .csrf(config -> config
                     .ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**"))
+                    .ignoringRequestMatchers(new AntPathRequestMatcher("/api/**"))
                 )
                 .authorizeHttpRequests(config -> config
-                    .requestMatchers(new AntPathRequestMatcher("/login.html")).permitAll() // new AntPathRequestMatcher required bc of h2 conosle
-                    .requestMatchers(new AntPathRequestMatcher("/payments/process", POST.name())).hasAuthority("ROLE_ADMIN") //hasRole("ADMIN");
-                    .requestMatchers(new AntPathRequestMatcher("/**")).authenticated()
+                     .requestMatchers(new AntPathRequestMatcher("/api/tokens")).permitAll()
+                     .requestMatchers(new AntPathRequestMatcher("/api/**")).hasRole("ADMIN")
                 )
                 // .httpBasic(config -> {})
                 .formLogin(config -> config

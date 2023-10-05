@@ -1,6 +1,7 @@
 POST http://localhost:8080/api/payments
 Accept: application/json
 Content-Type: application/json
+Authorization: bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9BRE1JTiIsImlzcyI6InNob3AiLCJleHAiOjE2OTY1MTc5NzEsInVzZXIiOiJqYW4ifQ.YTSkXTLwq73ITct5UegKX1O0DRe5j_hiD2QjmP4rxQY
 
 {
   "requestId": 1,
@@ -19,3 +20,14 @@ Content-Type: application/json
 GET http://localhost:8080/api/payments/started?pageNumer=0
 Accept: application/json
 Content-Type: application/json
+
+###
+
+POST http://localhost:8080/api/tokens
+Accept: application/json
+Content-Type: application/json
+
+{
+  "login": "jan",
+  "password": "123"
+}
