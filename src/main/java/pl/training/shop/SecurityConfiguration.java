@@ -8,8 +8,12 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import javax.sql.DataSource;
 
 import static org.springframework.http.HttpMethod.POST;
 
@@ -21,7 +25,7 @@ public class SecurityConfiguration {
         return new BCryptPasswordEncoder(10);
     }
 
-    @Bean
+    /*@Bean
     public UserDetailsManager userDetailsManager() {
         var user = User
                 .withUsername("jan")
@@ -30,6 +34,14 @@ public class SecurityConfiguration {
                 // .roles("ADMIN")
                 .build();
         return new InMemoryUserDetailsManager(user);
+    }*/
+
+    @Bean
+    public UserDetailsManager userDetailsManager(DataSource dataSource) {
+        var manager = new JdbcUserDetailsManager(dataSource);
+        manager.setUsersByUsernameQuery("select username, password, enabled from app_users where username = ?");
+        manager.setAuthoritiesByUsernameQuery("select username, authority from app_users_authorities where username = ?");
+        return manager;
     }
 
     @Bean
@@ -44,8 +56,13 @@ public class SecurityConfiguration {
                 // .httpBasic(config -> {})
                 .formLogin(config -> config
                     .loginPage("/login.html")
-                    .usernameParameter("username")
-                    .passwordParameter("password")
+                    // .usernameParameter("username")
+                    // .passwordParameter("password")
+                )
+                .logout(config -> config
+                   .logoutRequestMatcher(new AntPathRequestMatcher("/logout.html"))
+                   .logoutSuccessUrl("/login.html")
+                   // .invalidateHttpSession(true)
                 )
                 .build();
     }
@@ -59,7 +76,7 @@ public class SecurityConfiguration {
                 DaoAuthenticationProvider daoAuthenticationProvider; // Ładuje dane za pomocą usługi UserDetailsService i porównuje z danymi przekazanymi w Authentication
 
 
-    Authentication authentication; // Reprezentuje dane niezbędne do uwierzytelnienia, ale także status po uwierzytelnieniu mplementowane np. przez UsernamePasswordAuthenticationToken
+    Authentication authentication; // Reprezentuje dane niezbędne do uwierzytelnienia, ale także status po uwierzytelnieniu implementowane np. przez UsernamePasswordAuthenticationToken
     UserDetails userDetails; // Reprezentuje użytkownika / konto
     GrantedAuthority grantedAuthority; // Reprezentuje uprawnienia / role
     SecurityContext securityContext; // Przechowuje Authentication zalogowanego użytkownika

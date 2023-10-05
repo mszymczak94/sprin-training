@@ -7,9 +7,9 @@ spring:
   jpa:
     generate-ddl: true
     open-in-view: false
-  #  jpa:
 #    hibernate:
 #      ddl-auto: create-drop
+#    show-sql: true
   messages:
     basename: text, exceptions
   data:
