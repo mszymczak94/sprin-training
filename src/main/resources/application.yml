@@ -11,7 +11,9 @@ spring:
 #    hibernate:
 #      ddl-auto: create-drop
   messages:
-    basename: exceptions
+    basename: text, exceptions
+  profiles:
+    active: dev
 logging:
   level:
     org.javamoney.moneta: OFF
