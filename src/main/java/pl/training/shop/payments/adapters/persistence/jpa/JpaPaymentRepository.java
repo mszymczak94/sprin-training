@@ -1,4 +1,4 @@
-package pl.training.shop.payments.adapters.persistence;
+package pl.training.shop.payments.adapters.persistence.jpa;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,7 +24,7 @@ public interface JpaPaymentRepository extends JpaRepository<PaymentEntity, Strin
     @Query("select p from Payment p where p.status = 'COMPLETED' and p.value >= :value")
     Page<PaymentEntity> findCompletedWithValue(/*@Param("value")*/ double value, Pageable pageable);
 
-    @Query("select new pl.training.shop.payments.adapters.persistence.PaymentView(p.id, p.status) from Payment p")
+    @Query("select new pl.training.shop.payments.adapters.persistence.jpa.PaymentView(p.id, p.status) from Payment p")
     List<PaymentView> findAllAsPaymentView();
 
     @Query("select p.id as id, p.value as value, p.currencyCode as currencyCode from Payment p")

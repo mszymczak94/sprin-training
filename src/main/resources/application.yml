@@ -2,7 +2,7 @@ spring:
   datasource:
     username: admin
     password: admin
-    url: jdbc:postgresql://localhost:5432/shop
+    url: jdbc:postgresql://localhost:5432/payments
     driver-class-name: org.postgresql.Driver
   jpa:
     generate-ddl: true
@@ -12,8 +12,10 @@ spring:
 #      ddl-auto: create-drop
   messages:
     basename: text, exceptions
-  profiles:
-    active: dev
+  data:
+    mongodb:
+      uri: mongodb://admin:admin@localhost:27017/payments?authSource=admin&authMechanism=SCRAM-SHA-256
+      auto-index-creation: true
 logging:
   level:
     org.javamoney.moneta: OFF

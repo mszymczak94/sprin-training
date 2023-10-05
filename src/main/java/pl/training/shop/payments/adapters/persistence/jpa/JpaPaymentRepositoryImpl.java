@@ -1,4 +1,4 @@
-package pl.training.shop.payments.adapters.persistence;
+package pl.training.shop.payments.adapters.persistence.jpa;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -6,7 +6,7 @@ import lombok.Setter;
 
 import java.util.List;
 
-import static pl.training.shop.payments.adapters.persistence.PaymentEntity.FIND_WITH_CURRENCY_CODE;
+import static pl.training.shop.payments.adapters.persistence.jpa.PaymentEntity.FIND_WITH_CURRENCY_CODE;
 
 public class JpaPaymentRepositoryImpl implements JpaPaymentRepositoryExtensions {
 

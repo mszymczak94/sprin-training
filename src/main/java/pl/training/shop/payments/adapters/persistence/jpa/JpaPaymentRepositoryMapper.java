@@ -1,4 +1,4 @@
-package pl.training.shop.payments.adapters.persistence;
+package pl.training.shop.payments.adapters.persistence.jpa;
 
 import org.javamoney.moneta.Money;
 import org.mapstruct.IterableMapping;

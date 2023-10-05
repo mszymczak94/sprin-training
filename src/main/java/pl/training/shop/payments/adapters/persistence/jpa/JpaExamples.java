@@ -1,17 +1,11 @@
-package pl.training.shop.payments.adapters.persistence;
+package pl.training.shop.payments.adapters.persistence.jpa;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Set;
 import java.util.concurrent.ExecutionException;
-
-import static pl.training.shop.payments.adapters.persistence.SearchCriteria.Matcher.EQUAL;
-import static pl.training.shop.payments.adapters.persistence.SearchCriteria.Matcher.START_WITH;
 
 @Transactional
 @Component

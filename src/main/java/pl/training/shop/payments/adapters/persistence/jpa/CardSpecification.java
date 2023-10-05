@@ -1,4 +1,4 @@
-package pl.training.shop.payments.adapters.persistence;
+package pl.training.shop.payments.adapters.persistence.jpa;
 
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;

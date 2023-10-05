@@ -1,9 +1,8 @@
-package pl.training.shop.payments.adapters.persistence;
+package pl.training.shop.payments.adapters.persistence.mongo;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import pl.training.shop.commons.data.Page;
 import pl.training.shop.commons.data.ResultPage;
@@ -18,14 +17,14 @@ import static org.springframework.transaction.annotation.Propagation.MANDATORY;
 @Transactional(propagation = MANDATORY)
 @Component
 @RequiredArgsConstructor
-public class JpaPaymentRepositoryAdapter implements PaymentRepository {
+public class MongoPaymentRepositoryAdapter implements PaymentRepository {
 
-    private final JpaPaymentRepositoryMapper mapper;
-    private final JpaPaymentRepository repository;
+    private final MongoPaymentRepositoryMapper mapper;
+    private final MongoPaymentRepository repository;
 
     @Override
     public Payment save(Payment payment) {
-        var paymentEntity = mapper.toEntity(payment);
+        var paymentEntity = mapper.toDocument(payment);
         return mapper.toDomain(repository.save(paymentEntity));
     }
 
@@ -37,7 +36,7 @@ public class JpaPaymentRepositoryAdapter implements PaymentRepository {
 
     @Override
     public ResultPage<Payment> findByStatus(PaymentStatus paymentStatus, Page page) {
-        var status = mapper.toEntity(paymentStatus);
+        var status = mapper.toDocument(paymentStatus);
         var result = repository.findByStatus(status, PageRequest.of(page.getNumber(), page.getSize()));
         return mapper.toDomain(result);
     }
