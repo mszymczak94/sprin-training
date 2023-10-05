@@ -47,10 +47,11 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
-                .csrf(config -> {})
+                .csrf(config -> config
+                    .ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**"))
+                )
                 .authorizeHttpRequests(config -> config
                     .requestMatchers(new AntPathRequestMatcher("/login.html")).permitAll() // new AntPathRequestMatcher required bc of h2 conosle
-                    .requestMatchers(new AntPathRequestMatcher("/h2-console")).permitAll()
                     .requestMatchers(new AntPathRequestMatcher("/payments/process", POST.name())).hasAuthority("ROLE_ADMIN") //hasRole("ADMIN");
                     .requestMatchers(new AntPathRequestMatcher("/**")).authenticated()
                 )
