@@ -9,7 +9,7 @@ public class UuidMatcher extends TypeSafeMatcher<String> {
         return new UuidMatcher();
     }
 
-    private static String UUID_PATTERN = "\\w{8}-\\w{4}-\\w{4}-\\w{4}-\\w{12}";
+    private static final String UUID_PATTERN = "\\w{8}-\\w{4}-\\w{4}-\\w{4}-\\w{12}";
 
     @Override
     protected boolean matchesSafely(String uuid) {
