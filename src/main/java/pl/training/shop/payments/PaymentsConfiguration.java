@@ -13,7 +13,7 @@ public class PaymentsConfiguration {
 
     @Bean(initMethod = "init", destroyMethod = "destroy")
     public PaymentProcessor paymentProcessor(PaymentIdGenerator paymentIdGenerator, PaymentFeeCalculator paymentFeeCalculator,
-                                             @Qualifier("mongoPaymentRepositoryAdapter") PaymentRepository paymentRepository,
+                                             @Qualifier("jpaPaymentRepositoryAdapter") PaymentRepository paymentRepository,
                                              TimeProvider timeProvider) {
         return new PaymentProcessor(paymentIdGenerator, paymentFeeCalculator, paymentRepository, timeProvider);
     }

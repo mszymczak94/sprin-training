@@ -25,6 +25,7 @@ public class GlobalRestExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ExceptionDto> onException(Exception exception, Locale locale) {
         log.warning("Exception: " + exception.getClass().getName());
+        exception.printStackTrace();
         return responseBuilder.build(exception, INTERNAL_SERVER_ERROR, locale);
     }
 

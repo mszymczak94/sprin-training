@@ -16,7 +16,7 @@ import static org.mockito.Mockito.when;
 import static pl.training.shop.payments.PaymentFixtures.*;
 
 @ExtendWith(MockitoExtension.class)
-public class PaymentProcessorTest {
+class PaymentProcessorTest {
 
     private static final PaymentRequest PAYMENT_REQUEST = new PaymentRequest(1L, TEST_MONEY_VALUE);
 
