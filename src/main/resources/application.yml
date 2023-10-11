@@ -14,7 +14,13 @@ spring:
     basename: text, exceptions
   data:
     mongodb:
-      uri: mongodb://admin:admin@localhost:27017/payments?authSource=admin&authMechanism=SCRAM-SHA-256
+      #uri: mongodb://admin:admin@localhost:27017/payments?authSource=admin&authMechanism=SCRAM-SHA-256
+      username: admin
+      password: admin
+      host: localhost
+      port: 27017
+      authentication-database: admin
+      database: payments
       auto-index-creation: true
 logging:
   level:
