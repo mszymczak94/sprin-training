@@ -13,6 +13,7 @@ import java.util.UUID;
 @Log
 public class WebSocketHandshakeInterceptor implements HandshakeInterceptor {
 
+
     @Override
     public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
         if (request instanceof ServletServerHttpRequest httpRequest) {

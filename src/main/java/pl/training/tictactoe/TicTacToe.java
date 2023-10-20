@@ -1,5 +1,8 @@
 package pl.training.tictactoe;
 
+import lombok.Getter;
+import org.springframework.stereotype.Component;
+
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -9,6 +12,8 @@ import static java.util.stream.Collectors.toSet;
 import static java.util.stream.Stream.concat;
 import static pl.training.tictactoe.Player.CROSS;
 
+@Component
+@Getter
 public class TicTacToe {
 
     private static final int MINIMAL_FIELD_INDEX = 1;
