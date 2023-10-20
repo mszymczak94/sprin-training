@@ -18,7 +18,7 @@ public class TaskRunner implements ApplicationRunner {
         var futureResult = task.run();
         log.info("Task is running");
         log.info("Is task completed: " + futureResult.isDone());
-        log.info("Result : " + futureResult.get());
+        // log.info("Result : " + futureResult.get());
     }
 
 }
